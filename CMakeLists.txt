@@ -1,2 +1,2 @@
-project(FileReader)
+project(file_handler)
 
