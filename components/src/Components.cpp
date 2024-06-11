@@ -40,7 +40,36 @@ TType FileStruct::as() {
 
 template<typename TType>
 std::vector<TType> FileStruct::stvec() {
-    
+    if (typeid(TType) == typeid(std::string)) {
+        std::vector<std::string> vec;
+        std::string delimiter = ",";
+        size_t pos = 0;
+        std::string token;
+        while ((pos = struct_value.find(delimiter)) != std::string::npos) {
+            token = struct_value.substr(0, pos);
+            vec.push_back(token);
+            struct_value.erase(0, pos + delimiter.length());
+        }
+        vec.push_back(struct_value);
+        return vec;
+    } else {
+        std::vector<TType> vec;
+        std::vector<std::string> vec_str;
+        std::string delimiter = ",";
+        size_t pos = 0;
+        std::string token;
+        while ((pos = struct_value.find(delimiter)) != std::string::npos) {
+            token = struct_value.substr(0, pos);
+            vec_str.push_back(token);
+            struct_value.erase(0, pos + delimiter.length());
+        }
+        vec_str.push_back(struct_value);
+        for (const auto& s : vec_str) {
+            double value = std::stod(s);
+            vec.push_back(static_cast<TType>(value));
+        }
+        return vec;
+    }
 }
 
 

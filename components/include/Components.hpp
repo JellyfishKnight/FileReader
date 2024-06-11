@@ -2,6 +2,7 @@
 
 #include <bits/types/FILE.h>
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
 #include <map>
@@ -26,10 +27,8 @@ public:
     template<typename TType>
     TType as();
 private:
-    
     template<typename TType>
     std::vector<TType> stvec();
-
 
     std::map<std::string, FileStruct> file_struct;
     std::string struct_name;
@@ -37,6 +36,37 @@ private:
     bool is_leaf;
     bool value_is_vector;
 };
+
+
+
+class BaseParser {
+public:
+    BaseParser() = default;
+
+    virtual ~BaseParser() = default;
+
+    virtual FileStruct parse(const std::string& content) = 0;
+
+    virtual std::string dump(const FileStruct& file_struct) = 0;
+
+    std::shared_ptr<FileStruct> get_root() {
+        return root;
+    }
+protected:
+    std::shared_ptr<FileStruct> root;
+};
+
+class YamlParser : public BaseParser {
+public:
+    YamlParser() = default;
+
+    ~YamlParser() = default;
+
+    FileStruct parse(const std::string& content) override;
+
+    std::string dump(const FileStruct& file_struct) override;
+};
+
 
 
 
