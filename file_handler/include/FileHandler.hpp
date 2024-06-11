@@ -22,11 +22,6 @@ enum struct FileStatus {
     FAIL,
 };
 
-
-
-
-
-
 class FileHandler {
 public:
     FileHandler();
@@ -48,11 +43,6 @@ public:
     std::string operator[](const std::string& s);
 private:
     std::string file_path; 
-
-
-
-    std::unique_ptr<FileStruct> file_struct;
-
 };
 
 

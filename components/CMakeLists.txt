@@ -7,13 +7,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_BUILD_TYPE DEBUG)
 
-
-project(file_handler)
+project(components)
 
 
 add_library(
     ${PROJECT_NAME} STATIC
-    src/FileHandler.cpp
+    src/Components.cpp
 )
 
 target_include_directories(
@@ -21,12 +20,8 @@ target_include_directories(
     include
 )
 
-target_link_libraries(
-    ${PROJECT_NAME} PUBLIC
-    components
-)
 
 install(
     TARGETS ${PROJECT_NAME}
-    DESTINATION lib/file_handler
+    DESTINATION lib/components
 )
